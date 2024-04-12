@@ -6,3 +6,6 @@ run:
 
 install:
 	cd cmd/navigate && go install
+
+format:
+	go fmt ./...

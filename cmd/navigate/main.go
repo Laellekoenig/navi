@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/Laellekoenig/navigate/internal/navigate/config"
 	"github.com/Laellekoenig/navigate/internal/navigate/find"
@@ -19,15 +20,20 @@ func main() {
 		return
 	}
 
-	navDirs, err := config.GetNavDirs()
+	config, err := config.GetConfig()
 	if err != nil {
-		panic(err)
+		fmt.Printf("Error when loading config: %s\nDelete the config file if this error repeats.\n", err)
+		os.Exit(1)
 	}
 
-	res, err := find.FindDirsInDirs(navDirs, 1)
+	res, err := find.FindDirsInDirs(config.NavDirs, 1)
 	if err != nil {
 		fmt.Printf("Error when finding directories: %s", err)
 		return
+	}
+
+	if config.IncludeHomeDir && config.HomeDir != "" {
+		res = append(res, config.HomeDir)
 	}
 
 	selectedDir, err := fzf.GetUserSelection(res)

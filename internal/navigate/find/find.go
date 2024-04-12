@@ -12,9 +12,10 @@ func FindDirsInDirs(dirs []string, maxDepth int) ([]string, error) {
 		findCmd := exec.Command("find", dir, "-maxdepth", fmt.Sprint(maxDepth), "-type", "d")
 		output, err := findCmd.CombinedOutput()
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("%s", string(output))
 		}
 
+		output = output[:len(output)-1]
 		res = append(res, string(output))
 	}
 

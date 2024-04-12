@@ -2,4 +2,4 @@
 
 TODO
 
-`$ go install`
+`$ make install`
