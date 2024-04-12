@@ -5,6 +5,8 @@ import (
 	"os/exec"
 	"path"
 	"strings"
+
+	"github.com/Laellekoenig/navigate/internal/navigate/config"
 )
 
 func IsTmuxOpen() bool {
@@ -19,6 +21,18 @@ func SessionExists(sessionName string) bool {
 
 func CreateSession(sessionName string, dir string) error {
 	cmd := exec.Command("tmux", "new-session", "-d", "-s", sessionName, "-c", dir)
+	return cmd.Run()
+}
+
+func CreateSshSession(sessionName string, connection *config.Ssh) error {
+	var cmd *exec.Cmd
+
+	if connection.KeyPath == "" {
+		cmd = exec.Command("tmux", "new-session", "-d", "-s", sessionName, "ssh "+connection.Target)
+	} else {
+		cmd = exec.Command("tmux", "new-session", "-d", "-s", sessionName, "ssh -i"+connection.KeyPath+" "+connection.Target)
+	}
+
 	return cmd.Run()
 }
 

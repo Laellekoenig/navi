@@ -7,6 +7,7 @@ import (
 	"github.com/Laellekoenig/navigate/internal/navigate/config"
 	"github.com/Laellekoenig/navigate/internal/navigate/find"
 	"github.com/Laellekoenig/navigate/internal/navigate/fzf"
+	"github.com/Laellekoenig/navigate/internal/navigate/ssh"
 	"github.com/Laellekoenig/navigate/internal/navigate/tmux"
 )
 
@@ -36,6 +37,10 @@ func main() {
 		res = append(res, config.HomeDir)
 	}
 
+	if len(config.SshConnections) > 0 {
+		ssh.AddSshOptions(&res, config)
+	}
+
 	selectedDir, err := fzf.GetUserSelection(res)
 	if err != nil {
 		fmt.Printf("Error when getting user selection: %s", err)
@@ -46,10 +51,21 @@ func main() {
 		return
 	}
 
-	sessionName := tmux.GetSessionNameFromPath(selectedDir)
+	var sessionName string
+	isSsh, connection := ssh.IsSshOption(&selectedDir, config)
+	if isSsh {
+		sessionName = ssh.GetSessionName(&selectedDir)
+	} else {
+		sessionName = tmux.GetSessionNameFromPath(selectedDir)
+	}
 
 	if !tmux.SessionExists(sessionName) {
-		err := tmux.CreateSession(sessionName, selectedDir)
+		if isSsh {
+			err = tmux.CreateSshSession(sessionName, connection)
+		} else {
+			err = tmux.CreateSession(sessionName, selectedDir)
+		}
+
 		if err != nil {
 			fmt.Printf("Error when creating tmux session: %s", err)
 			return

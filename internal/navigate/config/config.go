@@ -9,8 +9,14 @@ import (
 	"path"
 )
 
+type Ssh struct {
+	Target  string `json:"target"`
+	KeyPath string `json:"keyPath"`
+}
+
 type Config struct {
 	NavDirs        []string `json:"directories"`
+	SshConnections []Ssh    `json:"sshConnections"`
 	IncludeHomeDir bool     `json:"includeHomeDir"`
 	HomeDir        string
 }
