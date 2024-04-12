@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/Laellekoenig/navigate/pkg/navigate/config"
-	"github.com/Laellekoenig/navigate/pkg/navigate/find"
-	"github.com/Laellekoenig/navigate/pkg/navigate/fzf"
-	"github.com/Laellekoenig/navigate/pkg/navigate/tmux"
+	"github.com/Laellekoenig/navigate/internal/navigate/config"
+	"github.com/Laellekoenig/navigate/internal/navigate/find"
+	"github.com/Laellekoenig/navigate/internal/navigate/fzf"
+	"github.com/Laellekoenig/navigate/internal/navigate/tmux"
 )
 
 func main() {
