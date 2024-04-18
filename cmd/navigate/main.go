@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 
@@ -12,6 +13,12 @@ import (
 )
 
 func main() {
+	var list bool
+	var selectedDir string
+	flag.BoolVar(&list, "list", false, "List all available directories")
+	flag.StringVar(&selectedDir, "select", "", "Open session of selected directory")
+	flag.Parse()
+
 	if !config.CheckDependencies() {
 		return
 	}
@@ -41,10 +48,19 @@ func main() {
 		ssh.AddSshOptions(&res, config)
 	}
 
-	selectedDir, err := fzf.GetUserSelection(res)
-	if err != nil {
-		fmt.Printf("Error when getting user selection: %s", err)
+	if list {
+		for _, dir := range res {
+			fmt.Println(dir)
+		}
 		return
+	}
+
+	if selectedDir == "" {
+		selectedDir, err = fzf.GetUserSelection(res)
+		if err != nil {
+			fmt.Printf("Error when getting user selection: %s", err)
+			return
+		}
 	}
 
 	if selectedDir == "" {
