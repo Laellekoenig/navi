@@ -1,11 +1,11 @@
 build:
-	go build -o bin/navigate cmd/navigate/main.go
+	go build -o bin/navi cmd/navi/main.go
 
 run:
-	go run cmd/navigate/main.go
+	go run cmd/navi/main.go
 
 install:
-	cd cmd/navigate && go install
+	cd cmd/navi && go install
 
 format:
 	go fmt ./...

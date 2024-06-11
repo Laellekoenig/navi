@@ -1,3 +1,3 @@
-module github.com/Laellekoenig/navigate
+module github.com/Laellekoenig/navi
 
 go 1.22.2

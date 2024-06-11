@@ -3,7 +3,7 @@ package ssh
 import (
 	"strings"
 
-	"github.com/Laellekoenig/navigate/internal/navigate/config"
+	"github.com/Laellekoenig/navi/internal/navi/config"
 )
 
 func AddSshOptions(options *[]string, config *config.Config) {

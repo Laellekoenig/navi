@@ -6,7 +6,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/Laellekoenig/navigate/internal/navigate/config"
+	"github.com/Laellekoenig/navi/internal/navi/config"
 )
 
 func IsTmuxOpen() bool {

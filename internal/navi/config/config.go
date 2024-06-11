@@ -43,7 +43,7 @@ func GetConfig() (*Config, error) {
 		return nil, err
 	}
 
-	fileName := path.Join(homeDir, ".config", "navigate", "config.json")
+	fileName := path.Join(homeDir, ".config", "navi", "config.json")
 	file, err := os.Open(fileName)
 	if err != nil {
 		stdConfig := getStandardConfig()
@@ -71,7 +71,7 @@ func (c *Config) save() error {
 		return err
 	}
 
-	configDir := path.Join(homeDir, ".config", "navigate")
+	configDir := path.Join(homeDir, ".config", "navi")
 	_, err = os.Stat(configDir)
 	if err != nil {
 		os.MkdirAll(configDir, 0755)

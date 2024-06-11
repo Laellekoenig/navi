@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Laellekoenig/navigate/internal/navigate/config"
-	"github.com/Laellekoenig/navigate/internal/navigate/find"
-	"github.com/Laellekoenig/navigate/internal/navigate/fzf"
-	"github.com/Laellekoenig/navigate/internal/navigate/ssh"
-	"github.com/Laellekoenig/navigate/internal/navigate/tmux"
+	"github.com/Laellekoenig/navi/internal/navi/config"
+	"github.com/Laellekoenig/navi/internal/navi/find"
+	"github.com/Laellekoenig/navi/internal/navi/fzf"
+	"github.com/Laellekoenig/navi/internal/navi/ssh"
+	"github.com/Laellekoenig/navi/internal/navi/tmux"
 )
 
 func main() {
@@ -24,7 +24,7 @@ func main() {
 	}
 
 	if !tmux.IsTmuxOpen() {
-		fmt.Println("Must be in tmux to execute navigate")
+		fmt.Println("Must be in tmux to execute navi")
 		return
 	}
 
